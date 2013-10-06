@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript">
+    	var socket = io.connect();
+    	socket.on('getMessages', function (messages) {
+        	$('#chat_window').empty();
+            for (var i in messages)
+            {
+            	userDiv = document.createElement('div');
+            	postDiv = document.createElement('div');
+            	$(userDiv).addClass('user').html(messages[i].user);
+            	$(postDiv).addClass('post').html(messages[i].post);
+            	userDiv.appendTo($('#chat_window'));
+            	postDiv.appendTo($('#chat_window'));
+            }
+        });
+    	
+    	
+    	
+    	
+    	
+	</script>
+    
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>
+    	Welcome to <%= title %>
+    </p>
+    <div id="chat_window">
+        
+    </div>
+    <div>
+        
+    </div>
+  </body>
+</html>
