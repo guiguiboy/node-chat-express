@@ -1,8 +1,38 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+#chat_window{
+	width: 1000px;
+	border: 1px solid black;
+	clear: both;
+}
+
+.contribution div {
+	float: left;
+	padding: 5px;
+}
+
+.contribution div.user {
+	width: 100px;
+	text-align: left;
+}
+
+.contribution div.post {
+	width: 500px;
+	text-align: left;
+}
+
+.contribution {
+	clear: both;
+	margin-bottom: 10px;
+	height: 20px;
+}
+
+.inputText{
+	width: 500px;
 }

@@ -2,19 +2,27 @@
 
 ## Objective
 
-
+Create a chat application using the Express framework and websockets with socket.io library
 
 
 ## Usage
 npm install express
 npm install ejs
 npm install socket.io
+npm install validator
 
 node app.js
+enjoy
 
 ## Developing
 
+## Todo
+handle disconnect
+add smiley support
+push on github + write an article on phpsymfony.com ! 
 
+## known bugs
+what do
 
 ### Tools
 

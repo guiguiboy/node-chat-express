@@ -6,23 +6,48 @@
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="/javascripts/jquery-1.10.2.min.js"></script>
     <script type="text/javascript">
-    	var socket = io.connect();
-    	socket.on('getMessages', function (messages) {
-        	$('#chat_window').empty();
-            for (var i in messages)
-            {
-            	userDiv = document.createElement('div');
-            	postDiv = document.createElement('div');
-            	$(userDiv).addClass('user').html(messages[i].user);
-            	$(postDiv).addClass('post').html(messages[i].post);
-            	userDiv.appendTo($('#chat_window'));
-            	postDiv.appendTo($('#chat_window'));
-            }
-        });
+    
+        /**
+         * Adds a message to the chat 
+         */
+        function addMessageToChat(user, post)
+        {
+        	contribDiv = document.createElement('div');
+        	userDiv    = document.createElement('div');
+        	postDiv    = document.createElement('div');
+        	$(contribDiv).addClass('contribution');
+        	
+        	$(userDiv).addClass('user').html(user);
+        	$(postDiv).addClass('post').html(post);
+        	
+        	$(userDiv).appendTo(contribDiv);
+        	$(postDiv).appendTo(contribDiv);
+        	
+        	$(contribDiv).appendTo($('#chat_window'));
+        	window.scrollTo(0,document.body.scrollHeight);
+        }
     	
+        //document ready
+    	$(document).ready(function() {
+        	var socket = io.connect();
+        	socket.on('getMessages', function (messages) {
+            	$('#chat_window').empty();
+            	
+                for (var i in messages)
+                	addMessageToChat(messages[i].user, messages[i].post);
+            });
+        	
+        	socket.on('sendMessage', function (username, message) {
+        		addMessageToChat(username, message);
+        	});
     	
-    	
-    	
+        	$("#add_post_form").submit(function(event) {
+        		event.preventDefault();
+        	    var frm = $("#add_post_form");
+        	    socket.emit('newPost', $('#chatTextInput').val());
+        	    $('#chatTextInput').val('');
+        	});
+    	});
     	
 	</script>
     
@@ -36,6 +61,9 @@
         
     </div>
     <div>
+        <form id="add_post_form" action="/addpost" method="post">
+            <input type="text" name="mypost" class="inputText" id="chatTextInput" /><input type="submit" value="Send"/>
+        </form>
         
     </div>
   </body>

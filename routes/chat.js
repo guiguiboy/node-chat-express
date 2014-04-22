@@ -1,8 +1,8 @@
+var validator     = require('validator');
 
 /**
  * Index route
  */
-
 exports.index = function(req, res){
 	if (typeof req.session.username == "undefined") {
 		res.redirect('/signin');
@@ -26,8 +26,12 @@ exports.postSignin = function(req, res){
 	var username = req.body.username;
 	var errors   = [];
 	
+	
 	if (username == '') {
 		errors.push('You must choose a name');
+	}
+	if (validator.validators.notRegex(username, /[a-z0-9-_]+/i)) {
+		errors.push('Username is not allowed.');
 	}
 	
 	if (errors.length > 0) {
